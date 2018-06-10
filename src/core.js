@@ -228,6 +228,13 @@ async function pruneNonCriticalCssLauncher ({
         debuglog('cleanupAndExit -> try to close browser page')
         // Without try/catch if error penthouse will crash if error here,
         // and wont restart properly
+
+        try {
+          await page.goto('about:blank')
+        } catch (err) {
+          debuglog('cleanupAndExit -> failed to go to about:blank (ignoring)')
+        }
+
         try {
           // must await here, otherwise will receive errors if closing
           // browser before page is properly closed,
